@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-// eslint-disable-next-line no-unused-vars
 import Accordion from './components/Accordion'
-// eslint-disable-next-line no-unused-vars
 import Search from './components/Search'
 import Dropdown from './components/Dropdown'
+import Translate from './components/Translate'
+import Route from './components/Route'
+import Header from './components/Header'
 
-// eslint-disable-next-line no-unused-vars
 const items = [
 	{
 		title: 'What is React?',
@@ -41,21 +41,27 @@ const options = [
 
 const App = () => {
 	const [selected, setSelected] = useState(options[0])
-	const [showDropdown, setShowDropdown] = useState(true)
 
 	return (
 		<div>
-			<button
-				onClick={() => {
-					setShowDropdown(!showDropdown)
-				}}
-			>
-				Toggle Dropdown
-			</button>
-			<br />
-			{/* <Accordion items={items} /> */}
-			{/* <Search /> */}
-			{showDropdown ? <Dropdown selected={selected} options={options} onSelectedChange={setSelected} /> : null}
+			<Header />
+			<Route path="/">
+				<Accordion items={items} />
+			</Route>
+			<Route path="/list">
+				<Search />
+			</Route>
+			<Route path="/dropdown">
+				<Dropdown
+					label="Select a color"
+					selected={selected}
+					options={options}
+					onSelectedChange={setSelected}
+				/>
+			</Route>
+			<Route path="/translate">
+				<Translate />
+			</Route>
 		</div>
 	)
 }
